@@ -11,16 +11,16 @@ public class MyArrayList<E>{
             throw new IllegalArgumentException("Illegal Capacity: "+
                     initialCapacity);
         }
-    }
-    private void getBigger(int howMuch) {                                //увеличивает массив на N ячеек
+    }           //Создание листа.
+    private void getBigger(int howMuch) {
         Object[] subArray = new Object[elementData.length + howMuch];
         System.arraycopy(elementData, 0, subArray, 0, elementData.length);
         elementData = subArray;
-    }
+    }               //Увеличение листа. Не знаю, зачем он приватен, но так легче.
 
     private Object[] toArray() {
         return elementData;
-    }
+    }      //Для работы с коллекцией в добавлении других листов.
 
     public void deleteElementIndex(int index) {
         Object[] subArray = new Object[elementData.length - 1];
@@ -28,9 +28,9 @@ public class MyArrayList<E>{
         if (elementData.length - (index + 1) >= 0)
             System.arraycopy(elementData, index + 1, subArray, index, elementData.length - (index + 1));
         elementData = subArray;
-    }
+    }         //Удаление элемента по индексу.
 
-    public void deleteElement(E element) {                     //Удаляет первое вхождение элемента.
+    public void deleteElement(E element) {
         int indexProwler = -1;
         for (int i = 0; i < elementData.length; i++) {
             if (elementData[i] == element) {
@@ -39,9 +39,9 @@ public class MyArrayList<E>{
             }
         }
         if (indexProwler != -1) deleteElementIndex(indexProwler);
-    }
+    }              //Удаление первого вхождения элемента.
 
-    public void addElement(E element) {                    //Вставляет элемент. Если массив пустой, увеличивает на один и вставляет, если заполнен, увеличивает на один и вставляет.
+    public void addElement(E element) {
         if (elementData.length == 0) {
             elementData = new Object[]{element};
         } else {
@@ -56,9 +56,9 @@ public class MyArrayList<E>{
                 }
             }
         }
-    }
+    }                 //Добавление элемента.
 
-    public void addElementWhere(int index, E element) { //ставляет элемент куда надо.
+    public void addElementWhere(int index, E element) {
         if (elementData.length == 0) {
             elementData = new Object[]{element};
         } else {
@@ -79,7 +79,7 @@ public class MyArrayList<E>{
             elementData[index] = element;
         }
 
-    }
+    } //Добавление элемента в конкретное место.
 
     public void addCollection(MyArrayList collection) {
         if (elementData.length == 0) {
@@ -90,7 +90,7 @@ public class MyArrayList<E>{
             System.arraycopy(collection.toArray(), 0, subArray, elementData.length, collection.toArray().length);
             elementData = subArray;
         }
-    }
+    } //Добавление массива в конец листа.
 
     public void addCollectionWhere(int index, MyArrayList collection) {
         if (elementData.length == 0) {
@@ -104,29 +104,28 @@ public class MyArrayList<E>{
                 System.arraycopy(elementData, index, subArray, index + length, elementData.length - index);
             elementData = subArray;
         }
-    }
+    } //Добавление листа в конкретное место: (старый массив - начало) индекс (новый массив) (старый массив - конец)
 
-
-    public Object print(int index) {                    //Написать элемент.
+    public Object print(int index) {
         return elementData[index];
-    }
+    } //Напечатать конкретный элемент листа.
 
     public void printAll () {
         for (Object str:elementData) {
             System.out.print(str + ", ");
         }
         System.out.println();
-    }
+    }                           //Выводит весь лист через запятую.
 
-    public void cutTo(int length){                      //Обрезать до такой-то длины.
+    public void cutTo(int length){
         Object[] subArray = new Object[length];
         for (int i = 0; i < subArray.length; i++) {
             subArray[i] = elementData[i];
         }
         elementData = subArray;
-    }
+    }                      //Обрезать массив до конкретной длины.
 
-    public int length() {                               //Показать длину.
+    public int length() {
         return elementData.length;
-    }
+    }      //Возвращает длину листа.
 }
