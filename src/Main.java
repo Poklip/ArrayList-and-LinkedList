@@ -1,8 +1,6 @@
 import Lists.MyArrayList;
-
-import java.lang.reflect.Type;
+import Lists.MyLinkedList;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -75,16 +73,25 @@ public class Main {
             testArrList.addElement(60065);
         }
         emptyList.addCollection(testArrList);
-        emptyList.printAll();
+        //emptyList.printAll();
         fgh.addElement(4);
         fgh.addElementWhere(3, -5);
         fgh.cutTo(10);
         fgh.deleteElementIndex(4);
         fgh.deleteElement(4);
-        fgh.printAll();
+        //fgh.printAll();
         fgh.addCollectionWhere(6, testArrList);
-        fgh.printAll();
+        //fgh.printAll();
 
+        MyLinkedList<Integer> mll = new MyLinkedList<>();
+        for (int i = 10; i < 90; i += 10) {
+            mll.addElement(i);
+        }
+
+        System.out.println(mll.length());
+        mll.addElementWhere(1, 44069);
+        System.out.println(mll.length());
+        mll.printAll();
 
 
 
