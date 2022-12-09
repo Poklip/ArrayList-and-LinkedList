@@ -45,7 +45,7 @@ public class MyLinkedList<E>  {
     }                 //Добавление элемента.
 
     public void addElementWhere(int index, E element) {
-        Atom<E> newAtom = new Atom<>(element, null, null);
+        final Atom<E> newAtom = new Atom<>(element, null, null);
         if (index == 0) {
             atomIndex(index).prev = newAtom;
             newAtom.next = first;
@@ -54,25 +54,32 @@ public class MyLinkedList<E>  {
         } else if (index == size) {
             addElement(element);
         } else {
-            atomIndex(index).prev = newAtom;
             newAtom.prev = atomIndex(index).prev;
             newAtom.next = atomIndex(index);
             atomIndex(index - 1).next = newAtom;
+            atomIndex(index).prev = newAtom;
             size ++;
         }
+
 
     } //Добавление элемента в конкретное место.
 
     Atom<E> atomIndex(int index) {
-        if (index >= size || index < 0) {
+        Atom<E> susAtom;
+        if (index <= size / 2) {
+            susAtom = first;
+            for (int i = 0; i < index; i++)
+                susAtom = susAtom.next;
+        } else if (index >= size/2 && index < size) {
+            susAtom = last;
+            for (int i = size; i > index + 1; i--)
+                susAtom = susAtom.prev;
+        } else {
             throw new IndexOutOfBoundsException("I have no such index: " + index);
         }
-        Atom<E> susAtom = first;
-        for (int i = 0; i < index; i++)
-            susAtom = susAtom.next;
         return susAtom;
-    }
 
+    }
     public void deleteElementIndex(int index) {
         if (index == 0) {
             first.item = null;
@@ -118,8 +125,8 @@ public class MyLinkedList<E>  {
         return -1;
     } //Работает со значениями (-128; 128)
 
-    public Object print(int index) {
-        return atomIndex(index);
+    public void print(int index) {
+        System.out.println(atomIndex(index).item);
     } //Напечатать конкретный элемент листа.
 
     public int length() {
