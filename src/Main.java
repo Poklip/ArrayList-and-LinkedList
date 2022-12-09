@@ -88,10 +88,12 @@ public class Main {
             mll.addElement(i);
         }
 
+        mll.addElementWhere(6, 120);
+        mll.deleteElementIndex(0);
         System.out.println(mll.length());
-        mll.addElementWhere(1, 44069);
-        System.out.println(mll.length());
+        mll.deleteElement(20);
         mll.printAll();
+
 
 
 

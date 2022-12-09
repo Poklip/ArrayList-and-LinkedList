@@ -1,5 +1,6 @@
 package Lists;
 
+import java.sql.SQLOutput;
 import java.util.LinkedList;
 
 public class MyLinkedList<E>  {
@@ -44,9 +45,6 @@ public class MyLinkedList<E>  {
     }                 //Добавление элемента.
 
     public void addElementWhere(int index, E element) {
-        if (index > size || index < 0 ) {
-            throw new IndexOutOfBoundsException("I have no such index: " + index);
-        }
         Atom<E> newAtom = new Atom<>(element, null, null);
         if (index == 0) {
             atomIndex(index).prev = newAtom;
@@ -66,7 +64,7 @@ public class MyLinkedList<E>  {
     } //Добавление элемента в конкретное место.
 
     Atom<E> atomIndex(int index) {
-        if (index == size) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("I have no such index: " + index);
         }
         Atom<E> susAtom = first;
@@ -74,18 +72,54 @@ public class MyLinkedList<E>  {
             susAtom = susAtom.next;
         return susAtom;
     }
-    public void deleteElementIndex(int index) {
 
+    public void deleteElementIndex(int index) {
+        if (index == 0) {
+            first.item = null;
+            first = first.next;
+        } else if (index == size - 1) {
+            last.item = null;
+            last = last.prev;
+        } else {
+            Atom atomPrev = atomIndex(index - 1);
+            Atom atomNext = atomIndex(index + 1);
+            Atom susAtom = atomIndex(index);
+            atomPrev.next = atomNext;
+            atomNext.prev = atomPrev;
+            susAtom.item = null;
+        }
+        size--;
     }         //Удаление элемента по индексу.
 
     public void deleteElement(E element) {
-
+        if (isThere(element) == -1) {
+            throw new IllegalArgumentException("I have no such element: " + element);
+        } else if (element == first.item) {
+            first.item = null;
+            first = first.next;
+            size --;
+        } else if (element == last.item) {
+            last.item = null;
+            last = last.prev;
+            size --;
+        } else {
+            deleteElementIndex(isThere(element));
+        }
     }              //Удаление первого вхождения элемента.
 
-
+    public int isThere(E element) {
+        Atom<E> susAtom = first;
+        for (int i = 0; i < size; i++) {
+            if (element == susAtom.item) {
+                return i;
+            }
+            susAtom = susAtom.next;
+        }
+        return -1;
+    } //Работает со значениями (-128; 128)
 
     public Object print(int index) {
-        return 2;
+        return atomIndex(index);
     } //Напечатать конкретный элемент листа.
 
     public int length() {
