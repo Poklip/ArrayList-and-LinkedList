@@ -1,13 +1,13 @@
 package Lists;
 
-import java.sql.SQLOutput;
-import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
+//не забывай про equals для объектов, мудятел
 public class MyLinkedList<E>  {
     private static class Atom<E> {
             E item;
-            transient Atom<E> prev;
-            transient Atom<E> next;
+            transient Atom prev;
+            transient Atom next;
 
         private Atom(E element, Atom<E> prev, Atom<E> next) {
             this.item = element;
@@ -88,9 +88,9 @@ public class MyLinkedList<E>  {
             last.item = null;
             last = last.prev;
         } else {
-            Atom susAtom = atomIndex(index);
-            Atom atomPrev = atomIndex(index - 1);
-            Atom atomNext = atomIndex(index + 1);
+            Atom<E> susAtom = atomIndex(index);
+            Atom<E> atomPrev = atomIndex(index - 1);
+            Atom<E> atomNext = atomIndex(index + 1);
             atomPrev.next = atomNext;
             atomNext.prev = atomPrev;
             susAtom.item = null;
@@ -114,10 +114,40 @@ public class MyLinkedList<E>  {
         }
     }              //Удаление первого вхождения элемента.
 
+    public void addCollection(MyLinkedList<E> collection){
+        if (size == 0) {
+            throw new NoSuchElementException("Acceptor is empty.");
+        }
+        last.next = collection.first;
+        collection.first.prev = last;
+        last = collection.last;
+        size += collection.size;
+    }
+
+    public void addCollectionWhere(int index, MyLinkedList<E> collection) {
+        if (index == 0) {
+            first.prev = collection.last;
+            collection.last.next = first;
+            first = collection.first;
+            size += collection.size;
+        } else if (index == size) {
+            addCollection(collection);
+        } else if (index > 0 || index < size) {
+            final Atom<E> next4new = atomIndex(index);
+            final Atom<E> prev4new = atomIndex(index - 1);
+            collection.first.prev = prev4new;
+            collection.last.next = next4new;
+            prev4new.next = collection.first;
+            next4new.prev = collection.last;
+            size += collection.size;
+        } else {
+            throw new IndexOutOfBoundsException("I have no such index: " + index);
+        }
+    }
     public int isThere(E element) {
         Atom<E> susAtom = first;
         for (int i = 0; i < size; i++) {
-            if (element == susAtom.item) {
+            if (element.equals(susAtom.item)) {
                 return i;
             }
             susAtom = susAtom.next;
@@ -134,7 +164,7 @@ public class MyLinkedList<E>  {
     }      //Возвращает длину листа.
 
     public void printAll() {
-        Atom toPrint = first;
+        Atom<E> toPrint = first;
         for (int i = 0; i < size; i++) {
             System.out.println(toPrint.item);
             toPrint = toPrint.next;

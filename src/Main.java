@@ -62,39 +62,45 @@ public class Main {
             giraffes.add(giraffe);
         }*/
 
-        MyArrayList<Integer> fgh = new MyArrayList<>(0);
+        //тестирование май эррэй лист
+        MyArrayList<Integer> mal = new MyArrayList<>(0);
         MyArrayList<Integer> testArrList = new MyArrayList<>(0);
         MyArrayList<Integer> emptyList = new MyArrayList<>(0);
 
         for (int i = 0; i < 14; i++) {
-            fgh.addElement(i);
+            mal.addElement(i);
         }
         for (int i = 0; i < 3; i++) {
             testArrList.addElement(60065);
         }
         emptyList.addCollection(testArrList);
         //emptyList.printAll();
-        fgh.addElement(4);
-        fgh.addElementWhere(3, -5);
-        fgh.cutTo(10);
-        fgh.deleteElementIndex(4);
-        fgh.deleteElement(4);
-        //fgh.printAll();
-        fgh.addCollectionWhere(6, testArrList);
-        //fgh.printAll();
+        mal.addElement(4);
+        mal.addElementWhere(3, -5);
+        mal.cutTo(10);
+        mal.deleteElementIndex(4);
+        mal.deleteElement(4);
+        //mal.printAll();
+        mal.addCollectionWhere(6, testArrList);
+        //mal.printAll();
 
+
+        //тестирование май линкед лист
         MyLinkedList<Integer> mll = new MyLinkedList<>();
-        for (int i = 0; i < 5; i ++) {
+        MyLinkedList<Integer> mllTest = new MyLinkedList<>();
+        for (int i = 1; i < 6; i ++) {
             mll.addElement(i);
+            mllTest.addElement(i * 10);
         }
 
+        //не забывай про equals для объектов, мудятел
 
         System.out.println("Length: " + mll.length() + "\n");
-
-        mll.addElementWhere(3, 22);
-        System.out.println("Length: " + mll.length() + "\n");
-        mll.deleteElementIndex(5);
+        mll.addElementWhere(3, 320);
+        mll.addCollectionWhere(5, mllTest);
+        mll.deleteElement(40);
         mll.printAll();
+        System.out.println("Length: " + mll.length() + "\n");
 
 
 
