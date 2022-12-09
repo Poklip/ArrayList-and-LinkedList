@@ -153,7 +153,7 @@ public class MyLinkedList<E>  {
             susAtom = susAtom.next;
         }
         return -1;
-    } //Работает со значениями (-128; 128)
+    }
 
     public void print(int index) {
         System.out.println(atomIndex(index).item);
