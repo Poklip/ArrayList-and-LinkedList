@@ -88,9 +88,9 @@ public class MyLinkedList<E>  {
             last.item = null;
             last = last.prev;
         } else {
+            Atom susAtom = atomIndex(index);
             Atom atomPrev = atomIndex(index - 1);
             Atom atomNext = atomIndex(index + 1);
-            Atom susAtom = atomIndex(index);
             atomPrev.next = atomNext;
             atomNext.prev = atomPrev;
             susAtom.item = null;

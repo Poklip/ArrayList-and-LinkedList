@@ -84,15 +84,16 @@ public class Main {
         //fgh.printAll();
 
         MyLinkedList<Integer> mll = new MyLinkedList<>();
-        for (int i = 0; i < 7; i ++) {
+        for (int i = 0; i < 5; i ++) {
             mll.addElement(i);
         }
 
 
         System.out.println("Length: " + mll.length() + "\n");
 
-        mll.addElementWhere(7, 22);
+        mll.addElementWhere(3, 22);
         System.out.println("Length: " + mll.length() + "\n");
+        mll.deleteElementIndex(5);
         mll.printAll();
 
 
